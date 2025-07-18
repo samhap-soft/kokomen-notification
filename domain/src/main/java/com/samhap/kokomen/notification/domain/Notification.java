@@ -35,5 +35,6 @@ public class Notification extends BaseEntity {
     public Notification(Long receiverMemberId, String content) {
         this.receiverMemberId = receiverMemberId;
         this.content = content;
+        this.notificationState = NotificationState.UNREAD;
     }
 }

@@ -41,4 +41,5 @@ services:
 
 networks:
   kokomen-notification-network:
+    external: true
     driver: bridge
