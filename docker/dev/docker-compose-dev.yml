@@ -1,7 +1,7 @@
 services:
   # ✅ Notification Internal Spring Application
   kokomen-notification-dev-internal:
-    image: samhap/kokomen-dev-notification-internal:dev
+    image: samhap/kokomen-notification-internal:dev
     container_name: kokomen-notification-dev-internal
     restart: on-failure:3
     expose:
