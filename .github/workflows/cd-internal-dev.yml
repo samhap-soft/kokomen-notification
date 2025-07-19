@@ -89,5 +89,5 @@ jobs:
         working-directory: /home/ubuntu
         run: |
           export HOSTNAME=$(hostname)
-          cd kokomen-notification/docker
+          cd kokomen-notification/docker/dev
           sudo -E docker compose -f dev-docker-compose.yml up -d
