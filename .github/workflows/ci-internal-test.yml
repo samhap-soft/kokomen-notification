@@ -2,7 +2,7 @@ name: CI INTERNAL TEST
 
 on:
   pull_request:
-    branches: [ main, develop ] # TODO: develop-internal 브랜치로 변경
+    branches: [ main, develop ]
 
 jobs:
   build:
