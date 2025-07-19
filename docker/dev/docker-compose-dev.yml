@@ -58,6 +58,7 @@ services:
 
 volumes:
   notification-mysql-data:
+  notification-mysql-init:
 
 networks:
   dev-kokomen-net:
