@@ -79,7 +79,7 @@ jobs:
           git sparse-checkout init --cone
           git fetch origin develop
           git checkout develop
-          git sparse-checkout set docker
+          git sparse-checkout set docker/dev
           git pull origin develop
 
       - name: Docker Image pull
@@ -87,7 +87,11 @@ jobs:
 
       - name: Docker run
         working-directory: /home/ubuntu
+        env:
+          MYSQL_ROOT_PASSWORD_DEV: ${{ secrets.MYSQL_ROOT_PASSWORD_DEV }}
+          SPRING_DATASOURCE_USERNAME_DEV: ${{ secrets.SPRING_DATASOURCE_USERNAME_DEV }}
+          SPRING_DATASOURCE_PASSWORD_DEV: ${{ secrets.SPRING_DATASOURCE_PASSWORD_DEV }}
         run: |
           export HOSTNAME=$(hostname)
-          cd kokomen-notification/docker
-          sudo -E docker compose -f dev-api-docker-compose.yml up -d kokomen-notification-dev-api 
+          cd kokomen-notification/docker/dev
+          sudo -E docker compose -f docker-compose-dev.yml up -d kokomen-notification-dev-api 

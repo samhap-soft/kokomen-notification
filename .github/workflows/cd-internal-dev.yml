@@ -1,7 +1,7 @@
 name: CD INTERNAL DEV
 
 on:
-  pull_request:
+  push:
     branches: [ develop ]
 
 jobs:
@@ -77,10 +77,10 @@ jobs:
           [ -d kokomen-notification ] || git clone --filter=blob:none --no-checkout https://github.com/samhap-soft/kokomen-notification.git
           cd kokomen-notification
           git sparse-checkout init --cone
-          git fetch origin feature/#2
-          git checkout feature/#2
-          git sparse-checkout set docker
-          git pull origin feature/#2
+          git fetch origin develop
+          git checkout develop
+          git sparse-checkout set docker/dev
+          git pull origin develop
 
       - name: Docker Image pull
         run: sudo docker pull samhap/kokomen-notification-internal:dev
@@ -91,8 +91,7 @@ jobs:
           MYSQL_ROOT_PASSWORD_DEV: ${{ secrets.MYSQL_ROOT_PASSWORD_DEV }}
           SPRING_DATASOURCE_USERNAME_DEV: ${{ secrets.SPRING_DATASOURCE_USERNAME_DEV }}
           SPRING_DATASOURCE_PASSWORD_DEV: ${{ secrets.SPRING_DATASOURCE_PASSWORD_DEV }}
-          SPRING_DATASOURCE_URL_DEV: ${{ secrets.SPRING_DATASOURCE_URL_DEV }}
         run: |
           export HOSTNAME=$(hostname)
           cd kokomen-notification/docker/dev
-          sudo -E docker compose -f docker-compose-dev.yml up -d
+          sudo -E docker compose -f docker-compose-dev.yml up -d kokomen-notification-dev-internal

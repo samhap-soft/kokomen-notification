@@ -18,6 +18,24 @@ services:
     networks:
       - dev-kokomen-net
 
+  kokomen-notification-dev-api:
+    image: samhap/kokomen-notification-api:dev
+    container_name: kokomen-notification-dev-api
+    restart: on-failure:3
+    expose:
+      - 8080
+    volumes:
+      - ./notification/api/app/logs:/logs
+    environment:
+      TZ: Asia/Seoul
+      JAVA_TOOL_OPTIONS: -Duser.timezone=Asia/Seoul
+      HOSTNAME: ${HOSTNAME}
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_USERNAME_DEV: ${SPRING_DATASOURCE_USERNAME_DEV}
+      SPRING_DATASOURCE_PASSWORD_DEV: ${SPRING_DATASOURCE_PASSWORD_DEV}
+    networks:
+      - dev-kokomen-net
+
   kokomen-notification-mysql-dev:
     image: mysql:8.4.5
     container_name: kokomen-notification-mysql-dev
