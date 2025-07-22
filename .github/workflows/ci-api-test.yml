@@ -62,4 +62,4 @@ jobs:
         if: always()
         with:
           report_paths: ${{ github.workspace }}/api/build/test-results/**/*.xml
-          token: ${{ github.token }} 
+          token: ${{ github.token }}
