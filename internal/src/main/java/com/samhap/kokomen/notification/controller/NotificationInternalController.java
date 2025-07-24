@@ -5,6 +5,7 @@ import com.samhap.kokomen.notification.service.dto.NotificationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +17,7 @@ public class NotificationInternalController {
     private final NotificationInternalService notificationInternalService;
 
     @PostMapping
-    public ResponseEntity<Void> saveNotification(NotificationRequest notificationRequest) {
+    public ResponseEntity<Void> saveNotification(@RequestBody NotificationRequest notificationRequest) {
         notificationInternalService.saveNotification(notificationRequest);
         return ResponseEntity.noContent().build();
     }
