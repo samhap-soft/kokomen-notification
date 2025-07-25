@@ -1,0 +1,48 @@
+spring:
+  profiles:
+    include:
+      - domain
+      - common
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    default-property-inclusion: non_null
+  session:
+    store-type: redis
+server:
+  servlet:
+    session:
+      timeout: 24h
+      cookie:
+        name: JSESSIONID
+        path: /
+        http-only: true
+        same-site: lax
+        max-age: 86400
+
+---
+# local profile
+spring:
+  config:
+    activate:
+      on-profile: local
+cors:
+  allowed-origins: http://localhost:8080
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true
+---
+# dev profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+cors:
+  allowed-origins: https://dev.kokomen.kr, https://kokomen.kr:3000, https://local.kokomen.kr:3000, http://local.kokomen.kr:3000
+server:
+  servlet:
+    session:
+      cookie:
+        domain: kokomen.kr
+        secure: false

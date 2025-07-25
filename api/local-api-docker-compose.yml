@@ -1,0 +1,17 @@
+services:
+  kokomen-notification-local-api:
+    container_name: kokomen-notification-local-api
+    build:
+      dockerfile: ./Dockerfile
+      no_cache: true
+    ports:
+      - 8100:8080
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    networks:
+      - local-kokomen-net
+
+networks:
+  local-kokomen-net:
+    external: true
+    driver: bridge
