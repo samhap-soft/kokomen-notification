@@ -10,9 +10,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: local
     networks:
-      - kokomen-notification-network
+      - local-kokomen-net
 
 networks:
-  kokomen-notification-network:
+  local-kokomen-net:
     external: true
     driver: bridge

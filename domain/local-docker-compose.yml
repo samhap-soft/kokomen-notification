@@ -28,18 +28,9 @@ services:
       interval: 5s
       retries: 10
     networks:
-      - kokomen-notification-network
-
-#  # ✅ Redis
-#  kokomen-notification-local-redis:
-#    image: valkey/valkey:8.0.1
-#    container_name: kokomen-notification-local-redis
-#    expose:
-#      - 6379
-#    volumes:
-#      - kokomen-notification-local-redis-data:/data
+      - local-kokomen-net
 
 networks:
-  kokomen-notification-network:
+  local-kokomen-net:
     external: true
     driver: bridge

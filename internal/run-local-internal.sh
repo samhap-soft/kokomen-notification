@@ -7,11 +7,11 @@ cd "$(dirname "$0")"
 
 cd ../domain
 
-chmod +x run-test-mysql-redis.sh
-./run-test-mysql-redis.sh
+chmod +x run-test-mysql.sh
+./run-test-mysql.sh
 
 # 도커 네트워크 생성
-NETWORK_NAME="kokomen-notification-network"
+NETWORK_NAME="local-kokomen-net"
 
 if ! docker network inspect "$NETWORK_NAME" >/dev/null 2>&1; then
   echo "Creating Docker network: $NETWORK_NAME"
