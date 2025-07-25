@@ -1,6 +1,5 @@
 package com.samhap.kokomen.notification.service.dto;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.samhap.kokomen.notification.domain.Notification;
 import com.samhap.kokomen.notification.domain.payload.NotificationPayload;
@@ -12,9 +11,9 @@ public record NotificationRequest(
         NotificationPayload notificationPayload
 ) {
 
-    public Notification toNotification(ObjectMapper objectMapper) {
+    public Notification toNotification() {
         try {
-            return new Notification(receiverMemberId, objectMapper.writeValueAsString(notificationPayload));
+            return new Notification(receiverMemberId, notificationPayload);
         } catch (Exception e) {
             throw new IllegalStateException("NotificationPayload 파싱 실패", e);
         }
