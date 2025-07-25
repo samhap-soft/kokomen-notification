@@ -23,8 +23,8 @@ public abstract class BaseControllerTest extends BaseTest {
     @BeforeEach
     void baseControllerTestSetUp(WebApplicationContext context, RestDocumentationContextProvider restDocumentation) {
         var uriPreprocessor = modifyUris()
-                .scheme("https")
-                .host("api-dev.kokomen.kr")
+                .scheme("http")
+                .host("localhost")
                 .removePort();
 
         var headerPreprocessor = modifyHeaders().remove(HttpHeaders.CONTENT_LENGTH);
