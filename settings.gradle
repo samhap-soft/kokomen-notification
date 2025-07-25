@@ -1,5 +1,6 @@
 rootProject.name = 'kokomen-notifications'
 
-include 'api'
+include 'common'
 include 'domain'
+include 'api'
 include 'internal'

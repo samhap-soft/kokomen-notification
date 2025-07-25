@@ -1,0 +1,16 @@
+services:
+  notification-test-redis:
+    container_name: notification-test-redis
+    image: valkey/valkey:8.0.1
+    ports:
+      - 16380:6379
+    volumes:
+      - kokomen-notification-test-redis-data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  kokomen-notification-test-redis-data:
