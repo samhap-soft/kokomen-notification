@@ -41,4 +41,8 @@ public class Notification extends BaseEntity {
         this.notificationPayload = notificationPayload;
         this.notificationState = NotificationState.UNREAD;
     }
+
+    public void markAsRead() {
+        this.notificationState = NotificationState.READ;
+    }
 }
