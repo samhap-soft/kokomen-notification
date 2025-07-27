@@ -1,19 +1,18 @@
 package com.samhap.kokomen.notification.service.dto;
 
 import com.samhap.kokomen.notification.domain.Notification;
-import com.samhap.kokomen.notification.domain.payload.NotificationPayload;
 import java.util.List;
 
 public record UnreadNotificationResponses(
-        List<NotificationPayload> notifications,
+        List<NotificationResponse> notifications,
         Boolean hasNext
 ) {
 
     public static UnreadNotificationResponses of(List<Notification> notifications, int size) {
         boolean hasNext = notifications.size() > size;
-        List<NotificationPayload> notificationPayloads = notifications.stream()
+        List<NotificationResponse> notificationPayloads = notifications.stream()
                 .limit(size)
-                .map(Notification::getNotificationPayload)
+                .map(NotificationResponse::new)
                 .toList();
 
         return new UnreadNotificationResponses(notificationPayloads, hasNext);
