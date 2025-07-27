@@ -1,0 +1,46 @@
+= Kokomen API Guide
+:doctype: book
+:icons: font
+:toc: left
+:toc-title: Table of Contents
+:toclevels: 2
+:source-highlighter: highlightjs
+:sectlinks:
+:sectnums:
+
+== 알림
+
+=== 자신의 안 읽은 알림 조회
+
+include::{snippetsDir}/notification-findMyUnreadNotifications/http-request.adoc[]
+include::{snippetsDir}/notification-findMyUnreadNotifications/query-parameters.adoc[]
+include::{snippetsDir}/notification-findMyUnreadNotifications/request-headers.adoc[]
+include::{snippetsDir}/notification-findMyUnreadNotifications/http-response.adoc[]
+include::{snippetsDir}/notification-findMyUnreadNotifications/response-fields.adoc[]
+include::{snippetsDir}/notification-findMyUnreadNotifications/curl-request.adoc[]
+
+=== 자신의 읽은 알림 조회
+
+include::{snippetsDir}/notification-findMyReadNotifications/http-request.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications/query-parameters.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications/request-headers.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications/http-response.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications/response-fields.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications/curl-request.adoc[]
+
+=== 자신의 알림 타입별 조회 상세(읽음 여부와 관련 없이 동일)
+
+==== 인터뷰 좋아요 알림
+
+include::{snippetsDir}/notification-findMyReadNotifications-interviewLike/http-response.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications-interviewLike/response-fields.adoc[]
+
+==== 답변 좋아요 알림
+
+include::{snippetsDir}/notification-findMyReadNotifications-answerLike/http-response.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications-answerLike/response-fields.adoc[]
+
+==== 인터뷰 조회수 알림
+
+include::{snippetsDir}/notification-findMyReadNotifications-interviewViewCount/http-response.adoc[]
+include::{snippetsDir}/notification-findMyReadNotifications-interviewViewCount/response-fields.adoc[]
