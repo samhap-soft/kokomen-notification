@@ -5,6 +5,11 @@ set -e
 # 현재 쉘 스크립트 파일의 디렉토리로 이동
 cd "$(dirname "$0")"
 
+cd ../common
+
+chmod +x run-test-redis.sh
+./run-test-redis.sh
+
 cd ../domain
 
 chmod +x run-test-mysql.sh
@@ -23,10 +28,10 @@ fi
 # 도메인 도커 컴포즈 실행
 docker compose -f ../domain/local-docker-compose.yml up -d
 
-../gradlew clean :internal:build
+../gradlew clean :api:build
 
 # 로컬 도커 컴포즈 실행
 # 실행 전에 헬스 체크 필요
-cd ../internal
-docker rm -f kokomen-notification-local-internal
-docker compose -f local-internal-docker-compose.yml up --build -d
+cd ../api
+docker rm -f kokomen-notification-local-api
+docker compose -f local-api-docker-compose.yml up --build -d
