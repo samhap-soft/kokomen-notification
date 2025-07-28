@@ -1,6 +1,10 @@
 spring:
+  application:
+    name: kokomen-notification-internal
   profiles:
-    include: domain
+    include:
+      - domain
+      - common
   jackson:
     property-naming-strategy: SNAKE_CASE
     default-property-inclusion: non_null
