@@ -11,5 +11,4 @@ public class KokomenNotificationApiApplication {
     public static void main(String[] args) {
         SpringApplication.run(KokomenNotificationApiApplication.class, args);
     }
-
 }
