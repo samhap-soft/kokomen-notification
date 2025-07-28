@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: kokomen-notification-api
   profiles:
     include:
       - domain
