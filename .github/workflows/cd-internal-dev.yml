@@ -95,4 +95,4 @@ jobs:
         run: |
           export HOSTNAME=$(hostname)
           cd kokomen-notification/docker/dev
-          sudo -E docker compose -f docker-compose-dev.yml up -d kokomen-notification-dev-internal
+          sudo -E docker compose -f docker-compose-dev.yml up -d kokomen-notification-dev-internal kokomen-notification-mysql-dev
