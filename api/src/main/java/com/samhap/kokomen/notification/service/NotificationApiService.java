@@ -22,7 +22,8 @@ public class NotificationApiService {
 
     @Transactional(readOnly = true)
     public UnreadNotificationResponses findMyUnreadNotifications(MemberAuth memberAuth, int size, Sort sort) {
-        List<Notification> unreadNotifications = findMyNotifications(memberAuth, NotificationState.UNREAD, PageRequest.of(0, size + 1, sort));
+        int sizeForHasNext = size + 1;
+        List<Notification> unreadNotifications = findMyNotifications(memberAuth, NotificationState.UNREAD, PageRequest.of(0, sizeForHasNext, sort));
         unreadNotifications.stream()
                 .limit(size)
                 .forEach(Notification::markAsRead);
