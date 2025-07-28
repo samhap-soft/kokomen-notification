@@ -76,9 +76,28 @@ services:
     networks:
       - dev-kokomen-net
 
+  promtail-notification-dev:
+    image: grafana/promtail
+    container_name: promtail-notification-dev
+    volumes:
+      - ./promtail/promtail.yaml:/etc/promtail/promtail.yaml
+      - ./notification/internal/app/logs:/logs/internal
+      - ./notification/api/app/logs:/logs/api
+      - promtail-notification-tmp:/tmp
+    command:
+      - "-config.file=/etc/promtail/promtail.yaml"
+      - "-config.expand-env=true"
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Seoul
+      HOSTNAME: ${HOSTNAME}
+    networks:
+      - dev-kokomen-net
+
 volumes:
   notification-mysql-data:
   notification-mysql-init:
+  promtail-notification-tmp:
 
 networks:
   dev-kokomen-net:
