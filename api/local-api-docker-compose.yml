@@ -6,6 +6,7 @@ services:
       no_cache: true
     ports:
       - 8100:8080
+      - 8001:8001
     environment:
       SPRING_PROFILES_ACTIVE: local
     networks:

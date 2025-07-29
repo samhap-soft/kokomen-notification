@@ -1,3 +1,7 @@
+management:
+  server:
+    address: 0.0.0.0
+    port: 8001
 spring:
   application:
     name: kokomen-notification-api

@@ -6,6 +6,7 @@ services:
     restart: on-failure:3
     expose:
       - 8080
+      - 8000
     volumes:
       - ./notification/internal/app/logs:/logs
     environment:
@@ -24,6 +25,7 @@ services:
     restart: on-failure:3
     expose:
       - 8080
+      - 8001
     volumes:
       - ./notification/api/app/logs:/logs
     environment:
