@@ -5,10 +5,10 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: http://loki:3100/loki/api/v1/push
+  - url: http://10.0.37.94:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: kokomen-notification-api-dev
+  - job_name: kokomen-notification-api
     static_configs:
       - labels:
           job: kokomen-notification-api
@@ -20,7 +20,7 @@ scrape_configs:
           expression: '\[.*?\] [\d\-:.\s]+ \[.*?\] (?P<level>[A-Z]+)\s'
       - labels:
           level:
-  - job_name: kokomen-notification-internal-dev
+  - job_name: kokomen-notification-internal
     static_configs:
       - labels:
           job: kokomen-notification-internal
