@@ -46,7 +46,8 @@ services:
       - "80:80"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/logs:/var/log/nginx
+      - ./nginx/logs/api:/var/log/nginx/api
+      - ./nginx/logs/internal:/var/log/nginx/internal
     restart: unless-stopped
     environment:
       TZ: Asia/Seoul
