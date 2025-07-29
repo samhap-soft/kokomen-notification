@@ -34,3 +34,13 @@ spring:
     redis:
       host: kokomen-redis-dev
       port: 6379
+---
+# prod profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    redis:
+      host: ${REDIS_PRIMARY_HOST_PROD}
+      port: 6379

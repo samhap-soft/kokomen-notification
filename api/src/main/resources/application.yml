@@ -52,3 +52,17 @@ server:
       cookie:
         domain: kokomen.kr
         secure: false
+---
+# prod profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+cors:
+  allowed-origins: https://kokomen.kr, https://www.kokomen.kr
+server:
+  servlet:
+    session:
+      cookie:
+        domain: kokomen.kr
+        secure: true
