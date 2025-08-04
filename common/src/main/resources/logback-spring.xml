@@ -6,8 +6,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                [%X{requestId:-noRequest}] %d{yyyy-MM-dd HH:mm:ss.SSS} kokomen-notification [%thread] %-5level
-                %logger{36} - %msg%n
+                <![CDATA[[%X{requestId:-noRequest}] %d{yyyy-MM-dd HH:mm:ss.SSS} kokomen-notification [%thread] %-5level %logger{36} - %msg%n]]>
             </pattern>
         </encoder>
     </appender>
@@ -20,8 +19,7 @@
         </rollingPolicy>
         <encoder>
             <pattern>
-                [%X{requestId:-noRequest}] %d{yyyy-MM-dd HH:mm:ss.SSS} kokomen-notification [%thread] %-5level
-                %logger{36} - %msg%n
+                <![CDATA[[%X{requestId:-noRequest}] %d{yyyy-MM-dd HH:mm:ss.SSS} kokomen-notification [%thread] %-5level %logger{36} - %msg%n]]>
             </pattern>
         </encoder>
     </appender>
