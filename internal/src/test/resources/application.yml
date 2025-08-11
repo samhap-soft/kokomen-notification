@@ -1,6 +1,8 @@
 spring:
   profiles:
-    include: domain-test
+    include:
+      - domain-test
+      - common-test
   main:
     lazy-initialization: true
   jackson:

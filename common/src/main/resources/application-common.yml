@@ -1,4 +1,18 @@
-# Common configuration for all profiles
+management:
+  endpoint:
+    health:
+      show-components: always
+      access: read_only
+    info:
+      access: read_only
+    metrics:
+      access: read_only
+    prometheus:
+      access: read_only
+  endpoints:
+    web:
+      exposure:
+        include: prometheus, info, health, metrics
 ---
 # local profile
 spring:
@@ -19,4 +33,14 @@ spring:
   data:
     redis:
       host: kokomen-redis-dev
+      port: 6379
+---
+# prod profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    redis:
+      host: ${REDIS_PRIMARY_HOST_PROD}
       port: 6379

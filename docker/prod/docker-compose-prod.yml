@@ -1,0 +1,86 @@
+services:
+  kokomen-notification-api:
+    image: samhap/kokomen-notification-api:prod
+    container_name: kokomen-notification-api
+    restart: on-failure:3
+    expose:
+      - 8080
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./notification/api/logs:/logs
+    environment:
+      TZ: Asia/Seoul
+      JAVA_TOOL_OPTIONS: -Duser.timezone=Asia/Seoul
+      HOSTNAME: ${HOSTNAME}
+      SPRING_PROFILES_ACTIVE: prod
+      REDIS_PRIMARY_HOST_PROD: ${REDIS_PRIMARY_HOST_PROD}
+      NOTIFICATION_DATASOURCE_URL_PROD: ${NOTIFICATION_DATASOURCE_URL_PROD}
+      NOTIFICATION_DATASOURCE_USERNAME_PROD: ${NOTIFICATION_DATASOURCE_USERNAME_PROD}
+      NOTIFICATION_DATASOURCE_PASSWORD_PROD: ${NOTIFICATION_DATASOURCE_PASSWORD_PROD}
+
+  kokomen-notification-internal:
+    image: samhap/kokomen-notification-internal:prod
+    container_name: kokomen-notification-internal
+    restart: on-failure:3
+    expose:
+      - 8080
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./notification/internal/logs:/logs
+    environment:
+      TZ: Asia/Seoul
+      JAVA_TOOL_OPTIONS: -Duser.timezone=Asia/Seoul
+      HOSTNAME: ${HOSTNAME}
+      SPRING_PROFILES_ACTIVE: prod
+      REDIS_PRIMARY_HOST_PROD: ${REDIS_PRIMARY_HOST_PROD}
+      NOTIFICATION_DATASOURCE_URL_PROD: ${NOTIFICATION_DATASOURCE_URL_PROD}
+      NOTIFICATION_DATASOURCE_USERNAME_PROD: ${NOTIFICATION_DATASOURCE_USERNAME_PROD}
+      NOTIFICATION_DATASOURCE_PASSWORD_PROD: ${NOTIFICATION_DATASOURCE_PASSWORD_PROD}
+
+  nginx:
+    image: nginx:1.28.0
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs/api:/var/log/nginx/api
+      - ./nginx/logs/internal:/var/log/nginx/internal
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Seoul
+
+  node:
+    image: prom/node-exporter
+    container_name: node
+    restart: unless-stopped
+    pid: host
+    ports:
+      - 9100:9100
+    command:
+      - '--path.rootfs=/host'
+    volumes:
+      - '/:/host:ro'
+    environment:
+      TZ: Asia/Seoul
+
+  promtail:
+    image: grafana/promtail
+    container_name: promtail
+    volumes:
+      - ./promtail/promtail.yaml:/etc/promtail/promtail.yaml
+      - ./notification/api/logs:/logs/api
+      - ./notification/internal/logs:/logs/internal
+      - promtail-tmp:/tmp
+    command:
+      - "-config.file=/etc/promtail/promtail.yaml"
+      - "-config.expand-env=true"
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Seoul
+      HOSTNAME: ${HOSTNAME}
+
+volumes:
+  promtail-tmp:
