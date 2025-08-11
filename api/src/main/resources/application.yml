@@ -45,7 +45,7 @@ spring:
     activate:
       on-profile: dev
 cors:
-  allowed-origins: https://dev.kokomen.kr, https://kokomen.kr:3000, https://local.kokomen.kr:3000, http://local.kokomen.kr:3000
+  allowed-origins: https://dev.kokomen.kr, https://kokomen.kr:3000, https://local.kokomen.kr:3000, http://local.kokomen.kr:3000, https://www.webview-dev.kokomen.kr, https://webview-dev.kokomen.kr
 server:
   servlet:
     session:
@@ -59,7 +59,7 @@ spring:
     activate:
       on-profile: prod
 cors:
-  allowed-origins: https://kokomen.kr, https://www.kokomen.kr
+  allowed-origins: https://kokomen.kr, https://www.kokomen.kr, https://www.webview.kokomen.kr, https://webview.kokomen.kr
 server:
   servlet:
     session:
