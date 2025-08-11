@@ -2,11 +2,13 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+
     <!-- 공통 Appender 정의 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                <![CDATA[[%X{requestId:-noRequest}] %d{yyyy-MM-dd HH:mm:ss.SSS} kokomen-notification [%thread] %-5level %logger{36} - %msg%n]]>
+                <![CDATA[[%X{requestId:-noRequest}] %d{yyyy-MM-dd HH:mm:ss.SSS} ${springAppName:-kokomen-notification} [%thread] %-5level %logger{36} - %msg%n]]>
             </pattern>
         </encoder>
     </appender>
