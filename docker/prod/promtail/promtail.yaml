@@ -17,7 +17,7 @@ scrape_configs:
           __path__: /logs/api/app.log
     pipeline_stages:
       - regex:
-          expression: '\[.*?\] [\d\-:.\s]+ [^\[\]]+ \[.*?\]\s+(?P<level>[A-Z]+)'
+          expression: '\[.*?\] [\d\-:.\s]+ [^\[\]]+ \[.*?\]\s+(?P<level>[A-Z]+)\s+[^\s]+'
       - labels:
           level:
   - job_name: kokomen-notification-internal
@@ -29,6 +29,6 @@ scrape_configs:
           __path__: /logs/internal/app.log
     pipeline_stages:
       - regex:
-          expression: '\[.*?\] [\d\-:.\s]+ [^\[\]]+ \[.*?\]\s+(?P<level>[A-Z]+)'
+          expression: '\[.*?\] [\d\-:.\s]+ [^\[\]]+ \[.*?\]\s+(?P<level>[A-Z]+)\s+[^\s]+'
       - labels:
           level:
