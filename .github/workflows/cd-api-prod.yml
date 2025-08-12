@@ -1,8 +1,8 @@
-name: CD API DEV
+name: CD API PROD
 
 on:
   push:
-    branches: [ develop ]
+    branches: [ main ]
 
 jobs:
   detect-changes:
@@ -14,7 +14,7 @@ jobs:
       - id: filter
         uses: dorny/paths-filter@v3
         with:
-          base: develop
+          base: main
           filters: |
             api:
               - 'api/**'
@@ -52,24 +52,29 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -f ./Dockerfile --platform linux/amd64 --no-cache -t samhap/kokomen-notification-api:dev .
+        run: docker build -f ./Dockerfile --platform linux/arm64 --no-cache -t samhap/kokomen-notification-api:prod .
         working-directory: ./api
 
       - name: Push the Docker Image to Dockerhub
-        run: docker push samhap/kokomen-notification-api:dev
+        run: docker push samhap/kokomen-notification-api:prod
         working-directory: ./api
 
   deploy-api:
     needs: build-api
-    runs-on: [ self-hosted, dev-notification ]
+    runs-on: [ self-hosted, prod-notification ]
+
+    strategy:
+      matrix:
+        runner: [ prod-notification-a, prod-notification-b ]
+
     steps:
       - name: Stop existing container
-        run: sudo docker rm -f kokomen-notification-dev-api || true
+        run: sudo docker rm -f kokomen-notification-api || true
 
       - name: Remove old API Docker image
         run: |
-          if sudo docker images samhap/kokomen-notification-api:dev -q | grep -q .; then
-            sudo docker rmi -f samhap/kokomen-notification-api:dev || true
+          if sudo docker images samhap/kokomen-notification-api:prod -q | grep -q .; then
+            sudo docker rmi -f samhap/kokomen-notification-api:prod || true
           fi
 
       - name: pull docker compose yaml files
@@ -78,21 +83,17 @@ jobs:
           [ -d kokomen-notification ] || git clone --filter=blob:none --no-checkout https://github.com/samhap-soft/kokomen-notification.git
           cd kokomen-notification
           git sparse-checkout init --cone
-          git fetch origin develop
-          git checkout develop
-          git sparse-checkout set docker/dev
-          git pull origin develop
+          git fetch origin main
+          git checkout main
+          git sparse-checkout set docker/prod
+          git pull origin main
 
       - name: Docker Image pull
-        run: sudo docker pull samhap/kokomen-notification-api:dev
+        run: sudo docker pull samhap/kokomen-notification-api:prod
 
       - name: Docker run
         working-directory: /home/ubuntu
-        env:
-          MYSQL_ROOT_PASSWORD_DEV: ${{ secrets.MYSQL_ROOT_PASSWORD_DEV }}
-          SPRING_DATASOURCE_USERNAME_DEV: ${{ secrets.SPRING_DATASOURCE_USERNAME_DEV }}
-          SPRING_DATASOURCE_PASSWORD_DEV: ${{ secrets.SPRING_DATASOURCE_PASSWORD_DEV }}
         run: |
           export HOSTNAME=$(hostname)
-          cd kokomen-notification/docker/dev
-          sudo -E docker compose -f docker-compose-dev.yml up -d kokomen-notification-dev-api kokomen-notification-mysql-dev
+          cd kokomen-notification/docker/prod
+          sudo -E docker compose -f docker-compose-prod.yml up -d kokomen-notification-api
