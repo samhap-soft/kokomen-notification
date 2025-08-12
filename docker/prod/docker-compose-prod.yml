@@ -29,6 +29,7 @@ services:
       - "8000:8000"
     volumes:
       - ./notification/internal/logs:/logs
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
     environment:
       TZ: Asia/Seoul
       JAVA_TOOL_OPTIONS: -Duser.timezone=Asia/Seoul
