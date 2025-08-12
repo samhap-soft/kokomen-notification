@@ -1,0 +1,32 @@
+= Kokomen API Guide
+:doctype: book
+:icons: font
+:toc: left
+:toc-title: Table of Contents
+:toclevels: 2
+:source-highlighter: highlightjs
+:sectlinks:
+:sectnums:
+
+== 알림
+
+=== 인터뷰 좋아요 알림 생성
+
+include::{snippetsDir}/notification-saveNotification-likeInterview/http-request.adoc[]
+include::{snippetsDir}/notification-saveNotification-likeInterview/http-response.adoc[]
+include::{snippetsDir}/notification-saveNotification-likeInterview/request-fields.adoc[]
+include::{snippetsDir}/notification-saveNotification-likeInterview/curl-request.adoc[]
+
+=== 인터뷰 답변 좋아요 알림 생성
+
+include::{snippetsDir}/notification-saveNotification-likeAnswer/http-request.adoc[]
+include::{snippetsDir}/notification-saveNotification-likeAnswer/http-response.adoc[]
+include::{snippetsDir}/notification-saveNotification-likeAnswer/request-fields.adoc[]
+include::{snippetsDir}/notification-saveNotification-likeAnswer/curl-request.adoc[]
+
+=== 인터뷰 조회수 알림 생성
+
+include::{snippetsDir}/notification-saveNotification-interviewViewCount/http-request.adoc[]
+include::{snippetsDir}/notification-saveNotification-interviewViewCount/http-response.adoc[]
+include::{snippetsDir}/notification-saveNotification-interviewViewCount/request-fields.adoc[]
+include::{snippetsDir}/notification-saveNotification-interviewViewCount/curl-request.adoc[]

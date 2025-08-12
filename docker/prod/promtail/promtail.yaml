@@ -1,0 +1,34 @@
+server:
+  http_listen_port: 9080
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://10.0.37.94:3100/loki/api/v1/push
+
+scrape_configs:
+  - job_name: kokomen-notification-api
+    static_configs:
+      - labels:
+          job: kokomen-notification-api
+          app: kokomen-notification-api
+          host: ${HOSTNAME}
+          __path__: /logs/api/app.log
+    pipeline_stages:
+      - regex:
+          expression: '\[.*?\] [\d\-:.\s]+ [^\[\]]+ \[.*?\]\s+(?P<level>[A-Z]+)\s+[^\s]+'
+      - labels:
+          level:
+  - job_name: kokomen-notification-internal
+    static_configs:
+      - labels:
+          job: kokomen-notification-internal
+          app: kokomen-notification-internal
+          host: ${HOSTNAME}
+          __path__: /logs/internal/app.log
+    pipeline_stages:
+      - regex:
+          expression: '\[.*?\] [\d\-:.\s]+ [^\[\]]+ \[.*?\]\s+(?P<level>[A-Z]+)\s+[^\s]+'
+      - labels:
+          level:

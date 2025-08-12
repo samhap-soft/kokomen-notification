@@ -1,0 +1,39 @@
+services:
+  notification-test-mysql:
+    container_name: notification-test-mysql
+    image: mysql:8.4.5
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: kokomen-notification-test
+      TZ: Asia/Seoul
+      LANG: C.UTF-8
+      MYSQL_INIT_CONNECT: "SET NAMES utf8mb4"
+    command:
+      [
+        "mysqld",
+        "--character-set-server=utf8mb4",
+        "--collation-server=utf8mb4_general_ci"
+      ]
+    ports:
+      - 13307:3306
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+#  notification-test-redis:
+#    container_name: notification-test-redis
+#    image: valkey/valkey:8.0.1
+#    ports:
+#      - 16380:6379
+#    volumes:
+#      - kokomen-notification-test-redis-data:/data
+#    healthcheck:
+#      test: [ "CMD", "redis-cli", "ping" ]
+#      interval: 5s
+#      timeout: 3s
+#      retries: 5
+#
+#volumes:
+#  kokomen-notification-test-redis-data:

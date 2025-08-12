@@ -1,0 +1,19 @@
+services:
+  # ✅ Notification Internal Spring Application
+  kokomen-notification-local-internal:
+    container_name: kokomen-notification-local-internal
+    build:
+      dockerfile: ./Dockerfile
+      no_cache: true
+    ports:
+      - 8090:8080
+      - 8000:8000
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+    networks:
+      - local-kokomen-net
+
+networks:
+  local-kokomen-net:
+    external: true
+    driver: bridge
