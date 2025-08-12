@@ -1,8 +1,8 @@
 name: CD INTERNAL PROD
 
 on:
-  push:
-    branches: [ main ]
+  pull_request:
+    branches: [ develop ]
 
 jobs:
   detect-changes:
@@ -14,7 +14,7 @@ jobs:
       - id: filter
         uses: dorny/paths-filter@v3
         with:
-          base: main
+          base: develop
           filters: |
             internal:
               - 'internal/**'
@@ -83,10 +83,10 @@ jobs:
           [ -d kokomen-notification ] || git clone --filter=blob:none --no-checkout https://github.com/samhap-soft/kokomen-notification.git
           cd kokomen-notification
           git sparse-checkout init --cone
-          git fetch origin main
-          git checkout main
+          git fetch origin feature/#16
+          git checkout feature/#16
           git sparse-checkout set docker/prod
-          git pull origin main
+          git pull origin feature/#16
 
       - name: Docker Image pull
         run: sudo docker pull samhap/kokomen-notification-internal:prod
