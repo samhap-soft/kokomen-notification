@@ -52,7 +52,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build the Docker image
-        run: docker build -f ./Dockerfile --platform linux/amd64 --no-cache -t samhap/kokomen-notification-api:prod .
+        run: docker build -f ./Dockerfile --platform linux/arm64 --no-cache -t samhap/kokomen-notification-api:prod .
         working-directory: ./api
 
       - name: Push the Docker Image to Dockerhub
