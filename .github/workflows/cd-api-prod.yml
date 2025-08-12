@@ -62,6 +62,11 @@ jobs:
   deploy-api:
     needs: build-api
     runs-on: [ self-hosted, prod-notification ]
+
+    strategy:
+      matrix:
+        runner: [ prod-notification-a, prod-notification-b ]
+
     steps:
       - name: Stop existing container
         run: sudo docker rm -f kokomen-notification-api || true
