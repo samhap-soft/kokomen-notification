@@ -1,8 +1,8 @@
 name: CD API PROD
 
 on:
-  pull_request:
-    branches: [ develop ]
+  push:
+    branches: [ main ]
 
 jobs:
   detect-changes:
@@ -14,14 +14,14 @@ jobs:
       - id: filter
         uses: dorny/paths-filter@v3
         with:
-          base: develop
+          base: main
           filters: |
             api:
               - 'api/**'
 
   build-api:
     needs: detect-changes
-    #    if: needs.detect-changes.outputs.api_changed == 'true'
+    if: needs.detect-changes.outputs.api_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -83,10 +83,10 @@ jobs:
           [ -d kokomen-notification ] || git clone --filter=blob:none --no-checkout https://github.com/samhap-soft/kokomen-notification.git
           cd kokomen-notification
           git sparse-checkout init --cone
-          git fetch origin feature/#16
-          git checkout feature/#16
+          git fetch origin main
+          git checkout main
           git sparse-checkout set docker/prod
-          git pull origin feature/#16
+          git pull origin main
 
       - name: Docker Image pull
         run: sudo docker pull samhap/kokomen-notification-api:prod
